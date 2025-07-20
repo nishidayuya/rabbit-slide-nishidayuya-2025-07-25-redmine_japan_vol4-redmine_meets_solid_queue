@@ -1,0 +1,26 @@
+---
+id: 2025-07-25-redmine_japan_vol4-redmine_meets_solid_queue
+base_name: redmine_meets_solid_queue
+tags:
+- redmine
+- redminejapan
+presentation_date: '2025-07-25'
+presentation_start_time:
+presentation_end_time:
+version: 2025.7.25.0
+licenses:
+- CC-BY-4.0
+slideshare_id:
+speaker_deck_id:
+vimeo_id:
+youtube_id:
+width: 1368
+height: 768
+source_code_uri:
+author:
+  markup_language: :markdown
+  name: Yuya.Nishida.
+  email:
+  rubygems_user: nishidayuya
+  slideshare_user:
+  speaker_deck_user: nishidayuya
