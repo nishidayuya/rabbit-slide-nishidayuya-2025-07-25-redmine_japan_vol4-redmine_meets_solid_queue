@@ -38,11 +38,12 @@ Sidekiq which uses Redis for persistance.
 - Redmineはチケットの追加や更新をメイル通知するのにデフォルトではキューアダプターにAsyncAdapterを使っている．
 - AsyncAdapterはスレッドベースのため，Redmineが終了するとそのジョブが失われる．具体的にはメイルが失われる．
 
-![](images/async_queue_adapter.png){:relative_height='30'}
+![](images/async_queue_adapter.png){:height='90'}
 
 ↓
 
-- 実運用の設定例としてジョブの保存先にRedisを使うSidekiqAdapterの設定がredmine.orgで紹介されている．
+- 実運用の例としてジョブの保存先にRedisを使うSidekiqAdapterの設定方法がredmine.orgで紹介されている．
+    - https://www.redmine.org/projects/redmine/wiki/SidekiqConfiguration
 
 # 背景: キューアダプターあれこれ
 
@@ -79,13 +80,30 @@ $ bin/jobs start
 plugin :solid_queue
 ```
 
-# できた
+# できた！
 
-![](images/solid_queue_adapter.png){:relative_height='100'}
+![](images/solid_queue_adapter.png){:height='570'}
+
+# redmine.orgのWikiにも書いた
+
+- https://www.redmine.org/projects/redmine/wiki/SolidQueueConfiguration
+
+![](images/redmine_org_wiki_SolidQueueConfiguration.png){:height='400'}
 
 # めでたしめでたし
 
-# 手順多い
+# いや ちょっと待ってください
+
+# 手順
+
+1. Gemfile.localに`gem "solid_queue"`
+1. 実行: `bundle && bin/rails solid_queue:install`
+1. db/migrate/年月日時分秒_add_solid_queue_tables.rbにdb/queue_schema.rbの内容を書く
+1. 実行: `bin/rails db:migrate`
+1. config/additional_environment.rbに`config.active_job.queue_adapter = :solid_queue`
+1. このあとスーパーバイザー起動
+
+# 手順が多い！
 
 # もっと簡単にできないのか？
 
@@ -121,12 +139,20 @@ $ plugins/redmine_solid_queue/bin/jobs start
 
 - Solid Queueは安心簡単
 - メイル通知の頻度によってはこれだけで十分
-- ↓のプラグインを使えば2コマンド実行だけで導入可能
+- ↓のプラグインを使えば最低2コマンド実行だけで導入可能
 - https://github.com/nishidayuya/redmine_solid_queue
 
-![](images/qrcode_github.com.png){:relative_height='130'}
+![](images/qrcode_github.com.png){:height='310'}
 
-# 時間が余ったら
+# 参考
+
+- https://github.com/rails/solid_queue
+- Sidekiq vs Solid Queue
+    - https://kaigionrails.org/2024/talks/willnet/
+- Redis不要のSolid QueueはSidekiq OSSに勝てるのか？Rails 8で非同期処理を徹底比較
+    - https://zenn.dev/counterworks/articles/a899a4f6a621e9
+- (How I) Deploy Solid Queue with Capistrano
+    - https://world.hey.com/robzolkos/how-i-deploy-solid-queue-with-capistrano-487b4a31
 
 # 自己紹介: 西田雄也 @nishidayuya
 
